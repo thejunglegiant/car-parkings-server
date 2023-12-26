@@ -6,10 +6,6 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-app.get('/', (req, res) => {
-  res.send('<h1>Hello world</h1>');
-});
-
 // Function to generate random objects
 function generateRandomObjects(num) {
   const objects = [];
@@ -32,7 +28,6 @@ var payments = []
 var selectedParking = null
 var selectedCarNumber = null
 
-// GET route
 app.get('/locations', (req, res) => {
   locations = generateRandomObjects(20);
   res.json(locations);
@@ -81,11 +76,8 @@ app.post('/pay', express.json(), (req, res) => {
       parking_id: parkingId,
       price_paid: pricePaid
   };
-
-  // Add the object to the array
   payments.push(transaction);
-
-  // Send a response
+  
   res.send({ success: true, message: 'Transaction recorded' });
 });
 
